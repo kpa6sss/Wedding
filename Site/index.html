@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Никита & Екатерина</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root{
+--green:#5f7d6b;
+--light:#f6f8f6;
+--accent:#dfe8e2;
+}
+
+body{
+margin:0;
+font-family:'Inter',sans-serif;
+background:var(--light);
+color:#1f2a24;
+overflow-x:hidden;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:linear-gradient(180deg,#f8faf8,#eef3ef);
+position:relative;
+overflow:hidden;
+}
+
+/* мягкое свечение фона */
+.hero::before{
+content:"";
+position:absolute;
+width:600px;
+height:600px;
+background:radial-gradient(circle, rgba(95,125,107,0.15), transparent 70%);
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+z-index:0;
+}
+
+/* контент */
+.hero-inner{
+position:relative;
+z-index:2;
+}
+
+/* приглашают */
+.invite{
+letter-spacing:3px;
+text-transform:uppercase;
+font-size:12px;
+color:#7a8f82;
+margin-bottom:15px;
+}
+
+/* имена */
+.names{
+font-size:48px;
+font-weight:300;
+margin:10px 0;
+}
+
+.names span{
+color:#5f7d6b;
+}
+
+/* дата */
+.date{
+font-size:20px;
+color:#5f7d6b;
+margin-bottom:30px;
+}
+
+/* таймер */
+.countdown{
+display:flex;
+justify-content:center;
+gap:20px;
+}
+
+.countdown div{
+background:white;
+padding:15px 18px;
+border-radius:12px;
+min-width:70px;
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.countdown span{
+display:block;
+font-size:24px;
+font-weight:600;
+}
+
+.countdown small{
+font-size:12px;
+color:#777;
+}
+
+/* анимация появления */
+.fade{
+opacity:0;
+transform:translateY(20px);
+animation:fadeUp 1s forwards;
+}
+
+.fade:nth-child(1){animation-delay:0.2s;}
+.fade:nth-child(2){animation-delay:0.4s;}
+.fade:nth-child(3){animation-delay:0.6s;}
+.fade:nth-child(4){animation-delay:0.8s;}
+
+@keyframes fadeUp{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+/* SECTION */
+.section{
+padding:100px 20px;
+text-align:center;
+}
+
+.card{
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(18px);
+border:1px solid rgba(255,255,255,0.1);
+border-radius:20px;
+padding:40px;
+max-width:750px;
+margin:auto;
+}
+
+.title{
+font-family:'Cormorant Garamond',serif;
+font-size:36px;
+}
+
+.divider{
+width:60px;
+height:1px;
+background:var(--gold);
+margin:20px auto;
+}
+
+/* BUTTON */
+.btn{
+padding:14px 28px;
+border:1px solid var(--green);
+color:var(--green);
+border-radius:40px;
+text-decoration:none;
+display:inline-block;
+margin:10px;
+transition:.3s;
+}
+.btn:hover{
+background:var(--green);
+color:#000;
+}
+
+/* FAQ */
+.faq-item{
+text-align:center;
+margin:15px auto;
+max-width:500px;
+padding:15px;
+border-radius:12px;
+background:#f6f8f6;
+transition:0.3s;
+}
+
+.faq-item:hover{
+transform:translateY(-3px);
+box-shadow:0 10px 25px rgba(0,0,0,0.05);
+}
+
+.faq-answer{
+display:none;
+color:#555;
+margin-top:8px;
+opacity:0;
+transition:0.3s;
+}
+
+.faq-answer.show{
+display:block;
+opacity:1;
+}
+
+/* MAP */
+.map iframe{
+width:100%;
+height:300px;
+border-radius:15px;
+border:none;
+}
+
+/* MUSIC */
+.music{
+position:fixed;
+bottom:20px;
+right:20px;
+background:white;
+padding:12px;
+border-radius:50%;
+cursor:pointer;
+border:2px solid #5f7d6b;
+transition:0.3s;
+}
+
+.music:hover{
+background:#5f7d6b;
+color:white;
+transform:scale(1.1);
+}
+
+/* FADE */
+.fade{opacity:0;transform:translateY(40px);transition:1s}
+.visible{opacity:1;transform:translateY(0)}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(30px)}
+to{opacity:1}
+}
+
+/* DETAILS */
+.timeline{
+max-width:600px;
+margin:auto;
+}
+
+.event{
+display:flex;
+align-items:flex-start;
+gap:20px;
+margin:30px 0;
+position:relative;
+}
+
+.time{
+font-size:28px;
+font-weight:600;
+color:#5f7d6b;
+min-width:80px;
+}
+
+.content{
+text-align:left;
+}
+
+.event-title{
+font-size:20px;
+font-weight:500;
+margin-bottom:5px;
+}
+
+.place{
+font-size:16px;
+color:#333;
+}
+
+.address{
+font-size:14px;
+color:#777;
+}
+
+/* линия между событиями */
+.event::before{
+content:"";
+position:absolute;
+left:35px;
+top:40px;
+width:2px;
+height:100%;
+background:#dfe5e1;
+}
+
+.event:last-child::before{
+display:none;
+}
+
+/* scroll */
+.scroll{
+position:absolute;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+font-size:12px;
+letter-spacing:2px;
+color:#7a8f82;
+opacity:0.8;
+animation:scrollAnim 2s infinite;
+}
+
+/* анимация “покачивания” */
+@keyframes scrollAnim{
+0%{transform:translate(-50%,0); opacity:0.5;}
+50%{transform:translate(-50%,8px); opacity:1;}
+100%{transform:translate(-50%,0); opacity:0.5;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-inner">
+    
+    <div class="invite fade">
+      приглашают вас
+    </div>
+
+    <h1 class="names fade">
+      Никита <span>&</span> Екатерина
+    </h1>
+
+    <div class="date fade">
+      12 сентября 2026
+    </div>
+
+    <div id="countdown" class="countdown fade"></div>
+
+  </div>
+
+<div class="scroll">scroll ↓</div>
+
+</section>
+
+<!-- DETAILS -->
+<div class="section fade">
+  <div class="card timeline">
+
+    <div class="title">Детали дня</div>
+    <div class="divider"></div>
+
+    <div class="event">
+      <div class="time">11:00</div>
+      <div class="content">
+        <div class="event-title">Церемония бракосочетания</div>
+        <div class="place">Екатерининский зал</div>
+        <div class="address">Краснодар, ул. Офицерская, 47</div>
+      </div>
+    </div>
+
+    <div class="event">
+      <div class="time">16:30</div>
+      <div class="content">
+        <div class="event-title">Банкет</div>
+        <div class="place">Zagarro Club</div>
+        <div class="address">Ростовское шоссе, 25/9</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- MAP -->
+<div class="section fade">
+<div class="card map">
+<div class="title">Дворец бракосочетания</div>
+<div class="divider"></div>
+
+<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A6e992616d1373ce378f367804c548fb4118e4b76579bc192047fd2f651e3aeea&amp;source=constructor" width="718" height="350" frameborder="0"></iframe>
+
+<a class="btn" target="_blank"
+href="https://www.google.com/maps/search/?api=1&query=Екатерининский+зал+ЗАГС+Краснодар">
+Google Maps
+</a>
+
+<a class="btn" target="_blank"
+href="https://yandex.ru/maps/?text=Екатерининский%20зал%20ЗАГС%20Краснодар">
+Яндекс.Карты
+</a>
+
+</div>
+</div>
+
+<!-- MAP -->
+<div class="section fade">
+<div class="card map">
+<div class="title">Банкетный зал</div>
+<div class="divider"></div>
+
+<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A511bb92bfd5557046a4cd37b639787f09cd6c269f854f08009ead67d6ad0e015&amp;source=constructor" width="718" height="350" frameborder="0"></iframe>
+
+<a class="btn" target="_blank"
+href="https://www.google.com/maps/place/Zagarro+Club+Resort/@45.1178037,38.9980119,18z/data=!4m9!3m8!1s0x40f046a4e17aa71f:0xad9850f0348c9def!5m2!4m1!1i2!8m2!3d45.1196521!4d38.9979959!16s%2Fg%2F1tvt8wvv?entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D">
+Google Maps
+</a>
+
+<a class="btn" target="_blank"
+href="https://yandex.ru/maps/35/krasnodar/?ll=38.997487%2C45.119254&mode=poi&poi%5Bpoint%5D=38.998078%2C45.119744&poi%5Buri%5D=ymapsbm1%3A%2F%2Forg%3Foid%3D107069871313&z=18">
+Яндекс.Карты
+</a>
+
+</div>
+</div>
+
+<!-- FAQ -->
+<div class="section fade">
+<div class="card">
+<div class="title">Вопросы</div>
+<div class="divider"></div>
+
+<div class="faq-item">
+<div class="faq-question">Есть ли дресс-код?</div>
+<div class="faq-answer">Нет, но постарайтесь избегать ярких цветов в одежде</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Можно +1?</div>
+<div class="faq-answer">Пожалуйста, сообщите об этом заранее</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Можно ли с детьми?</div>
+<div class="faq-answer">Да, будем рады</div>
+</div>
+
+<div class="faq-item">
+<div class="faq-question">Дарить ли цветы?</div>
+<div class="faq-answer">У нас есть небольшая идея: вместо цветов просим принести одну бутылку горячительного напитка с вашими пожеланиями 😊</div>
+</div>
+
+</div>
+</div>
+
+<!-- RSVP -->
+<div class="section fade">
+<div class="card">
+<div class="title">Подтверждение</div>
+<div class="divider"></div>
+
+<p>Пожалуйста, подтвердите участие</p>
+
+<a id="rsvpBtn" class="btn" target="_blank">
+Ответить
+</a>
+
+</div>
+</div>
+
+<!-- MUSIC -->
+<div class="music" onclick="music()">♪</div>
+<audio id="audio" loop>
+  <source src="sektor-gaza-svadba.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// COUNTDOWN
+    function declOfNum(number, titles) {
+        const cases = [2, 0, 1, 1, 1, 2];
+        return titles[
+            (number % 100 > 4 && number % 100 < 20) 
+            ? 2 
+            : cases[(number % 10 < 5) ? number % 10 : 5]
+        ];
+    }
+
+    // Укажите дату свадьбы здесь
+    const targetDate = new Date("2026-09-12T11:00:00").getTime();
+
+    function updateTimer() {
+        const now = new Date().getTime();
+        const diff = targetDate - now;
+
+        if (diff <= 0) {
+            document.getElementById("countdown").innerHTML = "Событие уже началось!";
+            return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        const dayWord = declOfNum(d, ['день', 'дня', 'дней']);
+        const hourWord = declOfNum(h, ['час', 'часа', 'часов']);
+        const minuteWord = declOfNum(m, ['минута', 'минуты', 'минут']);
+        const secondWord = declOfNum(s, ['секунда', 'секунды', 'секунд']);
+
+        document.getElementById("countdown").innerHTML = 
+            `осталось ${d} ${dayWord} ${h} ${hourWord} ${m} ${minuteWord} ${s} ${secondWord}`;
+    }
+
+    // Запускаем сразу и потом каждую секунду
+    updateTimer();
+    setInterval(updateTimer, 1000);
+
+// SCROLL ANIM
+const obs=new IntersectionObserver(e=>{
+e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible')})
+});
+document.querySelectorAll('.fade').forEach(el=>obs.observe(el));
+
+// FAQ
+document.querySelectorAll('.faq-question').forEach(q=>{
+q.onclick=()=>{
+let a=q.nextElementSibling;
+a.classList.toggle('show');
+}
+});
+
+// PERSONAL LINK
+let name=new URLSearchParams(location.search).get("name");
+if(name){
+document.getElementById("invite").innerText=name+", приглашаем вас";
+}
+
+// GOOGLE FORM AUTO NAME
+const formBase="https://docs.google.com/forms/d/e/1FAIpQLSfOBTtAtqLPVi36_Gz3f4Zp0rGtQ8gIINo7cYUAZ3Zg59QUNw/viewform?usp=header";
+document.getElementById("rsvpBtn").href=formBase+(name||"Гость");
+
+// MUSIC UX
+let started=false;
+function music(){
+    let a = document.getElementById("audio");
+    let btn = document.querySelector(".music");
+
+    if(a.paused){
+        a.volume = 0;
+        a.play().then(()=>{
+
+            btn.innerHTML = "❚❚";
+
+            let fade = setInterval(()=>{
+                if(a.volume < 0.3){
+                    a.volume = Math.min(a.volume + 0.05, 0.3);
+                } else {
+                    clearInterval(fade);
+                }
+            }, 200);
+
+        }).catch(err=>{
+            console.log("Ошибка воспроизведения:", err);
+        });
+
+    } else {
+        a.pause();
+        btn.innerHTML = "♪";
+    }
+}
+</script>
+
+<canvas id="petals"></canvas>
+
+<style>
+/* CANVAS */
+#petals{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:0;
+}
+
+/* ПАРАЛЛАКС */
+.hero{
+transform-style:preserve-3d;
+}
+
+/* СВЕЧЕНИЕ КУРСОРА */
+.cursor{
+position:fixed;
+width:200px;
+height:200px;
+border-radius:50%;
+background:radial-gradient(circle, rgba(95,125,107,0.15), transparent 70%);
+pointer-events:none;
+z-index:1;
+mix-blend-mode:multiply;
+}
+
+/* АНИМАЦИЯ БЛОКОВ */
+.card{
+transition:1s ease;
+transform:translateY(50px) scale(0.98);
+}
+
+.card.visible{
+transform:translateY(0) scale(1);
+}
+</style>
+
+<div class="cursor" id="cursor"></div>
+
+<script>
+// 🌸 ПАДАЮЩИЕ ЛЕПЕСТКИ
+const canvas=document.getElementById('petals');
+const ctx=canvas.getContext('2d');
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+
+let petals=[];
+
+for(let i=0;i<30;i++){
+petals.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*6+4,
+d:Math.random()*1
+});
+}
+
+function draw(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.fillStyle="rgba(95,125,107,0.2)";
+ctx.beginPath();
+for(let i=0;i<petals.length;i++){
+let p=petals[i];
+ctx.moveTo(p.x,p.y);
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2,true);
+}
+ctx.fill();
+update();
+}
+
+function update(){
+for(let i=0;i<petals.length;i++){
+let p=petals[i];
+p.y+=p.d+0.5;
+p.x+=Math.sin(p.y*0.01);
+
+if(p.y>canvas.height){
+petals[i]={x:Math.random()*canvas.width,y:0,r:p.r,d:p.d};
+}
+}
+}
+
+setInterval(draw,33);
+
+// 🧠 ПАРАЛЛАКС
+document.addEventListener('mousemove',(e)=>{
+let x=(e.clientX/window.innerWidth-0.5)*20;
+let y=(e.clientY/window.innerHeight-0.5)*20;
+document.querySelector('.hero').style.transform=
+`rotateX(${ -y }deg) rotateY(${ x }deg)`;
+});
+
+// ✨ КУРСОР СВЕЧЕНИЕ
+const cursor=document.getElementById('cursor');
+document.addEventListener('mousemove',(e)=>{
+cursor.style.left=e.clientX-100+'px';
+cursor.style.top=e.clientY-100+'px';
+});
+
+// 📱 РЕСАЙЗ
+window.addEventListener('resize',()=>{
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+});
+</script>
+
+</body>
+</html>
